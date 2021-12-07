@@ -1,1 +1,5 @@
 authtoken
+*.csv
+*.tif
+*.xlsx
+!*annotated.csv
