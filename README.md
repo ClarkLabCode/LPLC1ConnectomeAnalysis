@@ -10,4 +10,4 @@ This repository contains three sets of codes to perform analysis of the hemibrai
 ### How to run the scripts
 The scripts here interface with the hemibrain dataset using [neuprint-python](https://github.com/connectome-neuprint/neuprint-python).
 To access the dataset, you need to sign up on [neuPrint+](https://neuprint.janelia.org/) (Google account required). Find your Auth Token from the Account menu on neuPrint+, and save it under this directory as a plane text file named **authtoken** (without extension). The scripts read this **authtoken** file to connect to the hemibrain database.
-Other than neuprint-python, the scripts require common packages like numpy, scipy, pandas, matplotlib etc.
+Other than neuprint-python, the scripts require common packages like numpy, scipy, pandas, matplotlib, sklearn etc.
