@@ -1,11 +1,11 @@
 # LPLC1ConnectomeAnalysis
 This repository contains three sets of codes to perform analysis of the hemibrain dataset presented in Tanaka & Clark (2021) bioRxiv as follows:
 
-(1) Identification of putative T5 neurons
+(1) Identification of putative T5 neurons (**identify_T5**)
 
-(2) Clustering of lobula columnar inputs into LPLC1
+(2) Clustering of lobula columnar inputs into LPLC1 (**lobula_clustering**)
 
-(3) Identification of downstream pathways of LPLC1
+(3) Identification of downstream pathways of LPLC1 (**downstream_analysis**)
 
 ### How to run the scripts
 The scripts here interface with the hemibrain dataset using [neuprint-python](https://github.com/connectome-neuprint/neuprint-python).
