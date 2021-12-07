@@ -10,3 +10,8 @@ To replicate the results in Tanaka & Clark (2021) bioRxiv, run scripts in the fo
 3. **CalcMorphoStats_SDandLayers.py** This script performs PCA on the LT1 synapse data downloaded in **GetAndSaveSynapse.py**, and then fit a quadratic shell model on them. We then rotate the postsynapses of each fragmented terminal we identified in **GetSmallInputsConnectivity.py** into this LT1-based PC space, and compute the depth of their synapses relative to the LT1 shell model. We then calculate the spatial spread of their synapse locations as their standard deviation along the three PC axis, and also calculate the histogram of their synapse depth. We append these two morphological metrics (spread and depth) to the previously saved connectivity matrix.
 
 4. **ClusterSmallInputsByConnectivityAndMorphology.py** This script performs hierarchical clustering on the fragmented terminals based on their connectivity and morphology.
+
+The results folder contains a pre-computed results after step 3.
+
+### Quantification of T2/T3 connectivity on LPLC1
+The script **totalInputFractionT2T3.py** read the annotated list of putative T2/T3 cells (putativeT2T3_annotated.csv) and count how much of the LPLC1 inputs they account for.
