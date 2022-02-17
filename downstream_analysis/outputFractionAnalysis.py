@@ -29,18 +29,15 @@ counts = []
 q = """\
     MATCH (a:Neuron)
     WHERE a.type='%s'
-    RETURN DISTINCT a.bodyId as bodyId, a.downstream as pre, apoc.convert.fromJsonMap(a.roiInfo)["LO(R)"].downstream as lopre, apoc.convert.fromJsonMap(a.roiInfo)["LOP(R)"].downstream as loppre
+    RETURN DISTINCT a.bodyId as bodyId, a.downstream as pre
     """ % pretype
 df = c.fetch_custom(q)
 postcount = len(df)
 allout = np.sum(df['pre'])
-allcentralout = np.sum(df['pre'])-np.sum(df['lopre'])-np.sum(df['loppre'])
 counts.append(allout)
-counts.append(allcentralout)
 
 print('found ',postcount,pretype,'(flies have 750 ommatidia on one eye)')
 print('total presynapse',allout)
-print('total central brain presynapse',allcentralout)
 
 allcon = 0
 for cell in posttypes:
@@ -61,18 +58,16 @@ for cell in posttypes:
     allcon += thiscon
     print('found ',thiscon,'synapses from',pretype,'to',cell)
     print('This amounts to',thiscon/allout*100,'% of total',pretype,'output')
-    print('This amounts to',thiscon/allcentralout*100,'% of total',pretype,'central brain output')
     print(cell,'has total',thisallin,'inputs, so synapses from LPLC1 accounts for',thiscon/thisallin*100,'% of it')
     counts.append(thiscon)
 
 print('These',len(posttypes),'cell types have total',allcon,'synapses from LPLC1')
-print('Which amounts to',allcon/allout*100,'% of total',pretype,'output and',allcon/allcentralout*100,'% of total',pretype,'central brain outputs')
+print('Which amounts to',allcon/allout*100,'% of total',pretype,'output')
 
 ## visualize
 fig, ax = plt.subplots()
-piecounts = [counts[0]-counts[1], # OL output
-             counts[1]-np.sum(counts[2:])] # all other central output
-piecounts = piecounts + counts[2:]
-labels = ['Optic lobe','other central'] + posttypes
+piecounts = [counts[0]-np.sum(counts[1:])] # all other output
+piecounts = piecounts + counts[1:]
+labels = ['Other'] + posttypes
 ax.pie(piecounts,labels=labels,autopct='%1.1f%%')
 plt.show()
