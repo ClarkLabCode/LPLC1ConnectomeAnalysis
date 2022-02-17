@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 ## Define parameters
 respath = './lplc1/DownstreamAnalysis/'
 pretype = 'LPLC1' # change this to your favourite cell
-posttypes = ['PLP219','PVLP112','PVLP113','DNp03','DNp06']
+posttypes = ['LPLC1','PLP219','PVLP112','PVLP113','DNp03','DNp06']
 
 ## Connect to the server
 # NOTE: For this script to run, you must put "authtoken" file under the top directory
@@ -29,7 +29,7 @@ counts = []
 q = """\
     MATCH (a:Neuron)
     WHERE a.type='%s'
-    RETURN DISTINCT a.bodyId as bodyId, a.pre as pre, apoc.convert.fromJsonMap(a.roiInfo)["LO(R)"].pre as lopre, apoc.convert.fromJsonMap(a.roiInfo)["LOP(R)"].pre as loppre
+    RETURN DISTINCT a.bodyId as bodyId, a.downstream as pre, apoc.convert.fromJsonMap(a.roiInfo)["LO(R)"].downstream as lopre, apoc.convert.fromJsonMap(a.roiInfo)["LOP(R)"].downstream as loppre
     """ % pretype
 df = c.fetch_custom(q)
 postcount = len(df)
@@ -47,10 +47,9 @@ for cell in posttypes:
     q = """\
         MATCH (b:Neuron)
         WHERE b.type='%s'
-        RETURN DISTINCT b.bodyId as bodyId, b.post as post
+        RETURN DISTINCT b.bodyId as bodyId, b.upstream as post
         """ % cell
     celldf = c.fetch_custom(q)
-    print(celldf)
     q = """\
         MATCH (a:Neuron)-[w:ConnectsTo]->(b:Neuron)
         WHERE a.type='%s' AND b.type='%s'
