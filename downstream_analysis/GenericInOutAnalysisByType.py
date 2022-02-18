@@ -97,3 +97,17 @@ for thisType in uniqueTypeIn:
 
 resdfout.sort_values(by=['Wtotal'], ascending=False).to_csv(respath+cellType+'_out.csv')
 resdfin.sort_values(by=['Wtotal'], ascending=False).to_csv(respath+cellType+'_in.csv')
+
+# visualize
+fig, ax = plt.subplots(2,1)
+
+out_con = np.sort(resdfout['Wtotal'])[::-1]
+in_con  = np.sort(resdfin['Wtotal'])[::-1]
+
+
+# ignoring everything below 10
+ax[0].plot(np.log10(out_con[out_con>=10]),'g.-')
+ax[1].plot(np.log10(in_con[in_con>=10]),'g.-')
+ax[0].set_title('log10 out synapses')
+ax[1].set_title('log10 in synapses')
+plt.show()
